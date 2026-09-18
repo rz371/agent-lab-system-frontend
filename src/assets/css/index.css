@@ -1,0 +1,47 @@
+/* 1. 全局 border-box 盒模型 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. 清除默认边距 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. 重置 a 标签（替代蓝色和默认下划线） */
+a {
+  text-decoration: none;
+  color: inherit; /* 继承父级颜色 */
+}
+
+/* 4. 媒体元素（图片、视频等） */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 5. 表单元素继承字体 */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 6. 强制长单词换行 */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
