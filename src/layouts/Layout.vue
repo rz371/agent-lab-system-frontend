@@ -10,10 +10,18 @@
     >
       <div>智能实验室预约系统</div>
       <div style="display: flex; align-items: center">
-        <div style="margin-right: 10px">
-          <el-avatar :src="avatarIcon" />
-        </div>
-        管理员
+        <el-dropdown size="large">
+          <div style="margin-right: 10px; display: flex; align-items: center">
+            <el-avatar :src="avatarIcon" style="margin-right: 10px" />
+            <span>{{userInfo?.name}}</span>
+            
+          </div>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
     </el-header>
     <el-container>
@@ -44,9 +52,25 @@
   </el-container>
 </template>
 <script setup lang="js">
+import { logout } from '@/utils/auth'
+import { useUser } from '@/utils/user'
+import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
+const router = useRouter()
 const route = useRoute()
 const avatarIcon = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png')
+
+
+const {userInfo} = useUser()
+// console.log(userInfo);
+
+const handleLogout = async () => {
+    await logout()
+    ElMessage.success('成功退出登录')
+    router.push('/login')
+}
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+
+</style>

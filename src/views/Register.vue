@@ -7,11 +7,11 @@
         style="max-width: 700px"
         :model="ruleForm"
         :rules="rules"
-        label-width="auto"
+        label-width="0px"
       >
-        <el-form-item label="" prop="name">
+        <el-form-item label="" prop="username">
           <el-input
-            v-model="ruleForm.name"
+            v-model="ruleForm.username"
             style="width: 320px"
             prefix-icon="Female"
             placeholder="请输入用户名"
@@ -38,9 +38,9 @@
           />
         </el-form-item>
         <div class="form-btn">
-          <el-button type="primary" style="width: 100%">注册</el-button>
+          <el-button type="primary" style="width: 100%" @click="register">注册</el-button>
           <div class="login">
-            已有账户，请<a href="/login" style="color: var(--el-color-primary)">登录</a>
+            已有账户，请<router-link to="/login" style="color: var(--el-color-primary)">登录</router-link>
           </div>
         </div>
       </el-form>
@@ -50,14 +50,18 @@
 <script setup lang="js">
 import { reactive, ref } from 'vue'
 import AuthCard from '@/layouts/AuthCard.vue'
+import { registerApi } from '@/api/auth'
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const ruleForm = reactive({
-  name: '',
+  username: '',
   password: '',
   checkPassword: ''
 })
 const ruleFormRef = ref(null)
 const rules = reactive({
-  name: [
+  username: [
     { required: true, message: '用户名是必需的', trigger: 'blur' },
     { min: 3, max: 5, message: '用户名长度是3到5位', trigger: 'blur' }
   ],
@@ -79,6 +83,23 @@ const rules = reactive({
     }
   ]
 })
+
+const register = async () => {
+  const valid = await ruleFormRef.value.validate().catch(()=>false)
+  if(!valid) return
+  try{
+    const res = await registerApi(ruleForm)
+    console.log(res);
+    
+    if(res.code === 200){
+      ElMessage.success('成功注册，请去登录')
+      router.push('/login')
+    }
+    
+  } finally {
+
+  }
+}
 </script>
 <style lang="less" scoped>
 .form-btn {
