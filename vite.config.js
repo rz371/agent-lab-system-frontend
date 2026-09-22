@@ -12,5 +12,13 @@ export default defineConfig({
       // 这个就是说 @ 可以替代 ./src
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server:{
+    proxy:{
+      '/uploads':{
+        target:'http://127.0.0.1:8000',
+        changeOrigin:true
+      }
+    }
   }
 })

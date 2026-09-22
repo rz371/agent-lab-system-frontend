@@ -12,12 +12,13 @@
       <div style="display: flex; align-items: center">
         <el-dropdown size="large">
           <div style="margin-right: 10px; display: flex; align-items: center">
-            <el-avatar :src="avatarIcon" style="margin-right: 10px" />
+            <el-avatar :src="userInfo?.avatar" style="margin-right: 10px" />
             <span>{{userInfo?.name}}</span>
             
           </div>
           <template #dropdown>
             <el-dropdown-menu>
+              <el-dropdown-item @click="handlePersonInfo">个人信息</el-dropdown-item>
               <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -57,18 +58,24 @@ import { useUser } from '@/utils/user'
 import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import { useRoute,useRouter } from 'vue-router'
+
+const {userInfo} = useUser()
 const router = useRouter()
 const route = useRoute()
+
 const avatarIcon = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png')
 
 
-const {userInfo} = useUser()
-// console.log(userInfo);
 
+// 退出登录
 const handleLogout = async () => {
     await logout()
     ElMessage.success('成功退出登录')
     router.push('/login')
+}
+// 个人信息
+const handlePersonInfo = () => {
+  router.push('/personal')
 }
 </script>
 <style lang="less" scoped>

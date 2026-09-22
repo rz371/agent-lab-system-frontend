@@ -32,9 +32,22 @@ const router = createRouter({
           path: 'lab',
           name: 'Lab',
           component: () => import('@/views/LabManage.vue')
+        },
+        {
+          path:'user',
+          name:'User',
+          component:() => import('@/views/User.vue'),
+          children:[
+            {
+              path:'/personal',
+              name:'Personal',
+              component:() => import('@/views/Personal.vue')
+            }
+          ]
         }
       ]
-    }
+    },
+    
   ]
 })
 
