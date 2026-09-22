@@ -6,7 +6,7 @@
       </div>
     </template>
     <el-form
-    label-position="left"
+   
     label-width="100px"
     ref="formRef"
     :rules="rules"
@@ -21,7 +21,6 @@
         :http-request="handleUpload"
         accept="image/jpeg,image/png,image/gif,image/webp"
         :show-file-list="false"
-        :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
       >
         <el-avatar :size="50" :src="personalForm.avatar" style="cursor: pointer;"/>
@@ -31,16 +30,16 @@
     <el-form-item label="账号" >
       <el-input disabled v-model="personalForm.username" />
     </el-form-item>
-    <el-form-item label="用户名" >
+    <el-form-item label="用户名" prop="name">
       <el-input v-model="personalForm.name" />
     </el-form-item>
     <el-form-item label="角色" >
       <el-input disabled v-model="roleLabel" />
     </el-form-item>
-    <el-form-item label="邮箱" >
+    <el-form-item label="邮箱" prop="email">
       <el-input v-model="personalForm.email"/>
     </el-form-item>
-    <el-form-item label="手机号" >
+    <el-form-item label="手机号" prop="phone">
       <el-input v-model="personalForm.phone"/>
     </el-form-item>
     <el-form-item>

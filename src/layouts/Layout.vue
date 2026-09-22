@@ -10,7 +10,7 @@
     >
       <div>智能实验室预约系统</div>
       <div style="display: flex; align-items: center">
-        <el-dropdown size="large">
+        <el-dropdown size="large" @command="handleCommand">
           <div style="margin-right: 10px; display: flex; align-items: center">
             <el-avatar :src="userInfo?.avatar" style="margin-right: 10px" />
             <span>{{userInfo?.name}}</span>
@@ -18,8 +18,9 @@
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="handlePersonInfo">个人信息</el-dropdown-item>
-              <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
+              <el-dropdown-item command="personal" >个人信息</el-dropdown-item>
+              <el-dropdown-item command="pwd" >修改密码</el-dropdown-item>
+              <el-dropdown-item divided command="logout" >退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -63,21 +64,24 @@ const {userInfo} = useUser()
 const router = useRouter()
 const route = useRoute()
 
-const avatarIcon = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png')
 
 
-
-// 退出登录
-const handleLogout = async () => {
-    await logout()
+const handleCommand = (command) => {
+  if(command === 'personal'){
+    router.push('/personal')
+  } else if(command === 'pwd'){
+    router.push('/pwd')
+  }
+  
+  if(command === 'logout'){
+    logout()
     ElMessage.success('成功退出登录')
     router.push('/login')
-}
-// 个人信息
-const handlePersonInfo = () => {
-  router.push('/personal')
+  }
 }
 </script>
-<style lang="less" scoped>
-
+<style lang="less">
+.el-tooltip__trigger{
+  border:none !important
+}
 </style>

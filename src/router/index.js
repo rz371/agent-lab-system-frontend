@@ -42,6 +42,11 @@ const router = createRouter({
               path:'/personal',
               name:'Personal',
               component:() => import('@/views/Personal.vue')
+            },
+            {
+              path:'/pwd',
+              name:'Pwd',
+              component:() => import('@/components/Password.vue')
             }
           ]
         }

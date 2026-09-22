@@ -14,3 +14,10 @@ export function updateUserInfo(data){
         data
     })
 }
+export function updatePwd(data){
+    return request({
+        url:'/user/password',
+        method:'put',
+        data
+    })
+}
