@@ -37,18 +37,16 @@ const router = createRouter({
           path:'user',
           name:'User',
           component:() => import('@/views/User.vue'),
-          children:[
-            {
-              path:'/personal',
-              name:'Personal',
-              component:() => import('@/views/Personal.vue')
-            },
-            {
-              path:'/pwd',
-              name:'Pwd',
-              component:() => import('@/components/Password.vue')
-            }
-          ]
+        },
+        {
+          path:'/personal',
+          name:'Personal',
+          component:() => import('@/views/Personal.vue')
+        },
+        {
+          path:'/pwd',
+          name:'Pwd',
+          component:() => import('@/components/Password.vue')
         }
       ]
     },
