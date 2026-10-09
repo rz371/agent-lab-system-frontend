@@ -34,6 +34,11 @@ const router = createRouter({
           component: () => import('@/views/LabManage.vue')
         },
         {
+          path: 'equipment',
+          name: 'Equipment',
+          component: () => import('@/views/Equipment.vue')
+        },
+        {
           path:'user',
           name:'User',
           component:() => import('@/views/User.vue'),

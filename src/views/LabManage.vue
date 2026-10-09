@@ -6,7 +6,6 @@
         <span>实验室管理</span>
       </div>
     </template>
-    
     <div>
         <el-input placeholder="请输入账号进行查询" v-model="paginationData.keyword"
         style="width:300px" 
