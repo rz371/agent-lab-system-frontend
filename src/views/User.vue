@@ -121,10 +121,10 @@
         </el-select>
       </el-form-item>
     </el-form>
-    <template #footer="{row}">
+    <template #footer>
       <div class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSave(row)" :loading="dialogLoading">
+        <el-button type="primary" @click="handleSave" :loading="dialogLoading">
           提交
         </el-button>
       </div>
@@ -178,7 +178,7 @@ const tableColumns = [
 const tableLoading = ref(false)
 const dialogFormVisible = ref(false)
 const dialogLoading = ref(false)
-const dialogRef = ref(false)
+const dialogRef = ref(null)
 let tableData = reactive([])
 const total = ref(0)
 const dialogForm = reactive({
@@ -212,7 +212,7 @@ const handleSearch = () => {
 }
 const getAllInfo = async () => {
     tableLoading.value = true
-    tableData = []
+    tableData = reactive([])
     try{
         console.log(paginationData);
         const res = await getUserAll(paginationData)
@@ -261,8 +261,8 @@ const handelDelete = async (user) => {
             type: 'warning',
         }
     )
-    .then(() => {
-        const res = deleteUser({'user_id':user.id})
+    .then(async () => {
+        const res = await deleteUser({'user_id':user.id})
         if(res.code === 200){
             ElMessage.success('已成功删除')
             getAllInfo()
