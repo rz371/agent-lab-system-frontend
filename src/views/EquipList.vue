@@ -44,7 +44,9 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" min-width="120">
                 <template #default="{row}">
-                    <el-button link type="primary" size="small" @click="handleReview(row)">
+                    <el-button 
+                    :disabled="row.status == 0"
+                    link type="primary" size="small" @click="handleReview(row)">
                         预约
                     </el-button>
             </template>
@@ -62,6 +64,12 @@
             />
         </div>
     </el-card>
+    
+    <ReversationDialog :dialogFormVisible="reserDialog" 
+     :labName="labName" :labId="labId"
+     :equipName="equipName" :equipId="equipId"
+    @changeDialog="reserDialog=false"
+    />
 </template>
 
 <script setup>
@@ -69,15 +77,21 @@ import { onMounted, ref,reactive, watch } from 'vue';
 import {useRoute,useRouter} from 'vue-router'
 import {descEquip} from '@/api/equip_api'
 import {descLab} from '@/api/lab_api'
+import ReversationDialog from '@/components/ReversationDialog.vue';
 const route = useRoute()
 const router = useRouter()
 const tableData = reactive([])
 const tableLoading = ref(false)
 const total = ref(0)
+const reserDialog = ref(false)
 const paginationData = reactive({
     page:1,
     size:10
 })
+const labName = ref('')
+const labId = ref(null)
+const equipId = ref(null)
+const equipName = ref('')
 const tableColumns = [
     {
         prop:'img',
@@ -130,6 +144,8 @@ const getLabCurrent = async () => {
         // Object.assign(currentLab,res.data)
         // 或者，把reactive 变成 ref 
         currentLab.value = {...res.data}
+        labName.value = currentLab.value.name
+        labId.value = currentLab.value.id
     }
   } finally {
 
@@ -139,8 +155,12 @@ const changeCurrent = (val) => {
     paginationData.page = val
     getEquipList()
 }
-const handleReview = () => {
+const handleReview = (equip) => {
     // 预约
+    reserDialog.value = true
+    equipName.value = equip.name
+    equipId.value = equip.id
+
 }
 const handleReturn = () => {
     // 返回实验室列表

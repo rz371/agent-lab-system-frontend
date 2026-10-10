@@ -25,7 +25,7 @@
                 <p class="text">开放：{{ item.open_time &&  item.close_time ? `${item.open_time} - ${item.close_time}` : '--'}}</p>
                 <div style="margin-top: 10px;width:100%">
                     <el-button size="small" style='width: 49%;' @click="handleShowEquip(item)">查看设备</el-button>
-                    <el-button type="primary" size="small" style='width: 45%;'>预约</el-button>
+                    <el-button type="primary" size="small" style='width: 45%;' @click="handleReserve(item)">预约</el-button>
                 </div>
             </el-card>
         </el-col>
@@ -42,18 +42,25 @@
         />
     </div>
   </el-card>
+  <ReversationDialog :dialogFormVisible="reserDialog"
+  :labName="labName" :labId="labId"
+  @changeDialog="reserDialog=false"></ReversationDialog>
 </template>
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue';
 import {getLabAll} from '@/api/lab_api'
 import {useRouter} from 'vue-router';
+import ReversationDialog from '@/components/ReversationDialog.vue';
 const router = useRouter()
 const paginationData = reactive({
     page:1,
     size:10,
     keyword:''
 })
+const reserDialog = ref(false)
+const labName = ref('')
+const labId = ref(null)
 const labList = reactive([])
 const changeCurrent = (val) => {
     paginationData.page = val
@@ -73,6 +80,17 @@ const handleSearch = () => {
 const handleShowEquip = (lab) => {
     // 查看设备
     router.push(`/manager/equipList/${lab.id}`)
+}
+const handleReserve = (lab) => {
+    // 预约
+    reserDialog.value = true
+    labName.value = lab.name
+    console.log(labName.value);
+    
+    labId.value = lab.id
+   
+    
+
 }
 onMounted(() => {
     getLabList()
