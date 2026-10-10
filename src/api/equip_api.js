@@ -36,3 +36,12 @@ export function deleteEquip(data){
     })
 }
     
+
+export function descEquip(id,params){
+    return request({
+        url:`/equip/desc/${id}`,
+        method:'get',
+        params
+    })
+}
+    

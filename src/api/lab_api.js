@@ -35,5 +35,15 @@ export function deleteLab(data){
         data
     })
 }
+
+
+export function descLab(id){
+    // 获取具体的实验室数据
+    return request({
+        url:`/lab/desc/${id}`,
+        method:'get'
+    })
+}
+
     
 

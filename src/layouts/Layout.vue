@@ -28,20 +28,25 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu :default-active="route.path" router class="el-menu-vertical-demo">
+        <el-menu :default-active="$route.path" router class="el-menu-vertical-demo">
           <el-menu-item index="/manager/home">
             <el-icon><Menu /></el-icon>
             <span>系统首页</span>
           </el-menu-item>
-          <el-menu-item index="/manager/lab">
+          <el-menu-item index="/manager/lablist">
+            <el-icon><Menu /></el-icon>
+            <span>实验室列表</span>
+          </el-menu-item>
+         
+          <el-menu-item index="/manager/lab" v-if="userInfo.role == 'admin'">
             <el-icon><document /></el-icon>
             <span>实验室管理</span>
           </el-menu-item>
-          <el-menu-item index="/manager/equipment">
+          <el-menu-item index="/manager/equipment" v-if="userInfo.role == 'admin'">
             <el-icon><setting /></el-icon>
             <span>设备列表管理</span>
           </el-menu-item>
-          <el-menu-item index="/manager/user">
+          <el-menu-item index="/manager/user" v-if="userInfo.role == 'admin'">
             <el-icon><setting /></el-icon>
             <span>用户管理</span>
           </el-menu-item>

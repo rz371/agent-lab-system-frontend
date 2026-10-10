@@ -183,7 +183,7 @@ const dialogForm = reactive({
 const rules = reactive({
   name: [
     { required: true, message: '请输入实验室名称', trigger: 'blur' },
-    { min: 3, max: 5, message: '用户名长度应在 3 到 5 个字符之间', trigger: 'blur' }
+   
   ],
 })
 const paginationData = reactive({

@@ -29,6 +29,17 @@ const router = createRouter({
           component: () => import('@/views/Homepage.vue')
         },
         {
+          path: 'labList',
+          name: 'LabList',
+          component: () => import('@/views/LabList.vue')
+        },
+        {
+          //  动态id
+          path: 'equipList/:id',
+          name: 'EquipList',
+          component: () => import('@/views/EquipList.vue')
+        },
+        {
           path: 'lab',
           name: 'Lab',
           component: () => import('@/views/LabManage.vue')
